@@ -13,8 +13,8 @@ main.o: main.c memalloc.h
 	$(CC) $(CFLAGS) -c main.c -o main.o
 
 clean:
-	@rm -rf ./*.o
+	rm -rf ./*.o
 
 purge:
 	clean
-	@rm -rf main
+	rm -rf main
