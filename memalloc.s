@@ -79,6 +79,7 @@ movq %rsp, %rbp
     endif4:
     movq %rdi, %rdx
     addq %r10, %rdx
+    addq $9, %rdx
     movq 1(%r10), %rsi
     subq %rdi, %rsi
     subq $9, %rsi

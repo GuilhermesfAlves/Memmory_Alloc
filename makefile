@@ -12,6 +12,8 @@ memalloc.o: memalloc.s
 main.o: main.c memalloc.h
 	$(CC) $(CFLAGS) -c main.c -o main.o
 
+.PHONY: clean purge
+
 clean:
 	rm -rf ./*.o
 
