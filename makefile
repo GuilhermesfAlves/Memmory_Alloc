@@ -15,8 +15,7 @@ main.o: main.c memalloc.h
 .PHONY: clean purge
 
 clean:
-	rm -rf ./*.o
+	@rm -rf ./*.o
 
-purge:
-	clean
-	rm -rf main
+purge: clean
+	@rm -rf main
