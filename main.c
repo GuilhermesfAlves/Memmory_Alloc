@@ -13,7 +13,7 @@ int main() {
 	
 	setup_brk();
 	void *initial_brk = original_brk;
-	void *f_pnt, *s_pnt, *t_pnt;
+	void *f_pnt, *s_pnt, *t_pnt, *n_pnt;
 
 	f_pnt = memory_alloc(100);
 	printf("==>> ALOCANDO UM ESPAÇO DE 100 BYTES:\n");
@@ -47,6 +47,20 @@ int main() {
 	printf("\tIND. DE USO: %s\n", *((char*) (t_pnt-9)) == 0 ? "CORRETO!" : "INCORRETO!");
 	printf("\tTAMANHO: %s\n", *((long long*) (t_pnt-8)) == 100 ? "CORRETO!" : "INCORRETO!");
 
+	n_pnt = memory_alloc(91);
+	printf("==>> ALOCANDO UM ESPAÇO DE 91 BYTES:\n");
+	printf("\tLOCAL: %s\n", n_pnt == t_pnt ? "CORRETO!" : "INCORRETO!");
+	printf("\tIND. DE USO: %s\n", *((char*) (n_pnt-9)) == 1 ? "CORRETO!" : "INCORRETO!");
+	printf("\tTAMANHO: %s\n", *((long long*) (n_pnt-8)) == 100 ? "CORRETO!" : "INCORRETO!");	
+
+	memory_free(n_pnt);
+	s_pnt = memory_alloc(90);
+	printf("==>> ALOCANDO UM ESPAÇO DE 90 BYTES:\n");
+	printf("\tLOCAL: %s\n", s_pnt == t_pnt ? "CORRETO!" : "INCORRETO!");
+	printf("\tIND. DE USO: %s\n", *((char*) (s_pnt-9)) == 1 ? "CORRETO!" : "INCORRETO!");
+	printf("\tTAMANHO: %s\n", *((long long*) (s_pnt-8)) == 90 ? "CORRETO!" : "INCORRETO!");	
+	printf("\tIND. DE USO: %s\n", *((char*) (s_pnt+90)) == 0 ? "CORRETO!" : "INCORRETO!");
+	printf("\tTAMANHO: %s\n", *((long long*) (s_pnt+91)) == 1 ? "CORRETO!" : "INCORRETO!");
 
 	printf("==>> DESALOCANDO A PILHA (ILEGAL):\n");
 	unsigned long long stack_var = 0;
