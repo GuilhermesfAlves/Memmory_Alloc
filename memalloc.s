@@ -60,7 +60,9 @@ movq %rsp, %rbp
         movq %rdi, %r9
         addq %r10, %rdi
         addq $9, %rdi
+        pushq %r10
         syscall
+        popq %r10
         movb $1, (%r10)
         movq %r9, 1(%r10)
         jmp end_malloc
@@ -89,15 +91,22 @@ ret
 memory_free:
 pushq %rbp
 movq %rsp, %rbp
-    movq %rdi, %r10
+    pushq %rdi
     movq $0, %rdi
     movq $12, %rax
     syscall
-    cmpq %rax, %r10
+    popq %rdi
+    movq %rax, %rbx
     movq $0, %rax
+    cmpq %rbx, %rdi
     jge end_memory_free
-    movb $0, -9(%r10) 
+    cmpb $0, -9(%rdi)
+    je return_minus_1
+    movb $0, -9(%rdi) 
     movl $1, %eax
+    jmp end_memory_free
+    return_minus_1:
+    movl $-1, %eax
 end_memory_free:
 popq %rbp
 ret 

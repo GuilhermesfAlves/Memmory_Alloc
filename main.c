@@ -101,5 +101,8 @@ int main() {
 	printf("\tIND. DE USO: %s\n", *((char*) (f_pnt-9)) == 1 ? CORRETO : INCORRETO);
 	printf("\tTAMANHO: %s\n", *((long long*) (f_pnt-8)) == 100 ? CORRETO : INCORRETO);
 	memory_free(s_pnt);
+	printf("==>> DESALOCANDO UM PONTEIRO JA DESALOCADO:\n");
+	printf("\tRETORNO MEMORY_FREE(): %s\n", (memory_free(s_pnt) == -1)? CORRETO : INCORRETO);
+
 	return 0;
 }

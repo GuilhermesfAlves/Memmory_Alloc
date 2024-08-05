@@ -58,7 +58,9 @@ int memory_free(void *pointer){
 /*
     syscall rax 12 rdi 0
     if (pointer > brk)
-        return 0
+        return 0;
+    if (*pointer == 0)
+        return 0;
     *(pointer - OVERHEAD) = 0;
 */
 }
