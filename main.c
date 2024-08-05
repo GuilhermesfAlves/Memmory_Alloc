@@ -81,5 +81,25 @@ int main() {
 	unsigned int alloc_return = memory_free((void*) &stack_var);
 	if (!alloc_return) printf("\tO RETORNO DA LIBERAÇÃO FOI NULL!\n");
 
+	dismiss_brk();
+
+	s_pnt = memory_alloc(50);
+
+	printf("==>> ALOCANDO UM ESPAÇO DE 50 BYTES:\n");
+	printf("\tLOCAL: %s\n", s_pnt-9 == initial_brk ? CORRETO : INCORRETO);
+	printf("\tIND. DE USO: %s\n", *((char*) (s_pnt-9)) == 1 ? CORRETO : INCORRETO);
+	printf("\tTAMANHO: %s\n", *((long long*) (s_pnt-8)) == 50 ? CORRETO : INCORRETO);
+	memory_free(s_pnt);
+		
+	printf("==>> DESALOCANDO UM ESPAÇO DE 50 BYTES:\n");
+	printf("\tIND. DE USO: %s\n", *((char*) (s_pnt-9)) == 0 ? CORRETO : INCORRETO);
+	printf("\tTAMANHO: %s\n", *((long long*) (s_pnt-8)) == 50 ? CORRETO : INCORRETO);
+	f_pnt = memory_alloc(100);
+
+	printf("==>> ALOCANDO UM ESPAÇO DE 100 BYTES:\n");
+	printf("\tLOCAL: %s\n", f_pnt-9 == s_pnt + 50 ? CORRETO : INCORRETO);
+	printf("\tIND. DE USO: %s\n", *((char*) (f_pnt-9)) == 1 ? CORRETO : INCORRETO);
+	printf("\tTAMANHO: %s\n", *((long long*) (f_pnt-8)) == 100 ? CORRETO : INCORRETO);
+	memory_free(s_pnt);
 	return 0;
 }

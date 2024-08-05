@@ -32,7 +32,7 @@ movq %rsp, %rbp
     syscall
     popq %rdi
     movq %rax, %r11 # dynamic_brk
-    movq original_brk, %r10 # greater_unused_brk
+    movq %r11, %r10 # greater_unused_brk
     movq original_brk, %r9 # iterator_brk
     while:
         cmpq %r11, %r9
@@ -54,11 +54,6 @@ movq %rsp, %rbp
     jmp while
     out_while:
     cmpq original_brk, %r11
-    jle endif2
-        cmpb $0, (%r10)
-        je endif2
-            movq %r11, %r10 
-    endif2:
     cmpq %r11, %r10
     jne endif3
         movq $12, %rax
