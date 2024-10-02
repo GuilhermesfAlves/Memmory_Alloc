@@ -3,6 +3,14 @@ AS = as
 CFLAGS = -g -no-pie
 LFLAGS = -lm
 
+all: main bestFit
+
+bestFit: main_bestFit.o bestFit.o 
+	$(CC) $(CFLAGS) $(LFLAGS) -o bestFit main_bestFit.o bestFit.o
+
+bestFit.o: bestFit.s
+	$(AS) $(CFLAGS) -c bestFit.s -o bestFit.o
+
 main: main.o memalloc.o
 	$(CC) $(CFLAGS) $(LFLAGS) -o main main.o memalloc.o
 
@@ -18,4 +26,4 @@ clean:
 	@rm -rf ./*.o
 
 purge: clean
-	@rm -rf main
+	@rm -rf main bestFit
